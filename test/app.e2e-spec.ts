@@ -25,4 +25,10 @@ describe('AppController (e2e)', () => {
   it('/ (GET test)', () => {
     return request(app.getHttpServer()).get('/test').expect(200);
   });
+
+  describe('Endpoint Produto', () => {
+    it('Get Produto', () => {
+      return request(app.getHttpServer()).get('/produto').expect(200);
+    });
+  });
 });
