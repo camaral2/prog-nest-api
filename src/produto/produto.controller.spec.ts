@@ -25,4 +25,17 @@ describe('ProdutoController', () => {
     //  expect(data.length).toBeGreaterThanOrEqual(1);
     //});
   });
+
+  it('Should get produto 1', () => {
+    expect(produtoController.getProduto({ id: 1 })).toMatchObject({
+      description: 'Mouse',
+      id: 1,
+    });
+  });
+
+  it('Should add new produto', () => {
+    const newProd = { id: 3, description: 'key' };
+
+    expect(produtoController.addProduto(newProd)).toMatchObject(newProd);
+  });
 });

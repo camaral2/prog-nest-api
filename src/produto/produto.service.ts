@@ -10,4 +10,9 @@ export class ProdutoService {
   getProdutos() {
     return this.produtos;
   }
+
+  addProduto(produto) {
+    this.produtos = [...this.produtos, { ...produto }];
+    return this.produtos.find((t) => t.id === produto.id);
+  }
 }
