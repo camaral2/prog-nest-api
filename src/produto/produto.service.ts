@@ -1,18 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { IProduto } from './interfaces/produto.interfaces';
+import { CreateProdutoDTO } from './dto/create-produto.dto';
 
 @Injectable()
 export class ProdutoService {
-  produtos = [
-    { id: 1, description: 'Mouse' },
-    { id: 2, description: 'Keyboard' },
-  ];
+  constructor(
+    @InjectModel('Produto') private readonly produtoModel: Model<IProduto>,
+  ) {}
 
-  getProdutos() {
-    return this.produtos;
+  async getProdutos(): Promise<IProduto[]> {
+    const produtos = await this.produtoModel.find().exec();
+    return produtos;
   }
 
-  addProduto(produto) {
-    this.produtos = [...this.produtos, { ...produto }];
-    return this.produtos.find((t) => t.id === produto.id);
+  async addProduto(createProdutoDTO: CreateProdutoDTO): Promise<IProduto> {
+    const newProd = await new this.produtoModel(createProdutoDTO);
+    return newProd.save();
   }
 }
