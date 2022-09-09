@@ -5,11 +5,18 @@ describe('ProdutoService', () => {
   let service: ProdutoService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ProdutoService],
+    const app: TestingModule = await Test.createTestingModule({
+      providers: [
+        {
+          provide: ProdutoService,
+          useValue: {
+            findById: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    service = module.get<ProdutoService>(ProdutoService);
+    service = app.get(ProdutoService);
   });
 
   it('should be defined', () => {

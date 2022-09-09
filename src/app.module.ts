@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ProdutoModule } from './produto/produto.module';
 
 @Module({
@@ -11,14 +11,6 @@ import { ProdutoModule } from './produto/produto.module';
     ),
     ProdutoModule,
   ],
-  /*
-  imports: [
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/prog-nest-api', {
-      useNewUrlParse: true,
-      useUnifiedTopology: true,
-    }),
-    ProdutoModule,
-  ],*/
   controllers: [AppController],
   providers: [AppService],
 })

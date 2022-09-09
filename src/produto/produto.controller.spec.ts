@@ -1,34 +1,41 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { ProdutoController } from './produto.controller';
+//import { ProdutoModule } from './produto.module';
 import { ProdutoService } from './produto.service';
-import { ProdutoModule } from './produto.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ProdutoSchema } from './schemas/produto.schema';
+import { Res } from '@nestjs/common';
 
 describe('ProdutoController', () => {
-  let produtoController: ProdutoController;
+  let controller: ProdutoController;
   let service: ProdutoService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       controllers: [ProdutoController],
-      providers: [ProdutoService],
-      imports: [ProdutoModule],
+      providers: [
+        {
+          provide: ProdutoService,
+          useValue: {
+            findById: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    produtoController = module.get<ProdutoController>(ProdutoController);
-    service = module.get<ProdutoService>(ProdutoService);
+    service = moduleRef.get<ProdutoService>(ProdutoService);
+    controller = moduleRef.get<ProdutoController>(ProdutoController);
   });
 
   it('should be defined', () => {
-    expect(produtoController).toBeDefined();
+    expect(controller).toBeDefined();
   });
 
   /*
   it('Should get all produtos', () => {
-    expect(produtoController.getProdutos().length).toBeGreaterThanOrEqual(1);
-
-    //produtoController.getProdutos().then((data) => {
-    //  expect(data.length).toBeGreaterThanOrEqual(1);
-    //});
+    controller.getProdutos(Res).then((data) => {
+      expect(data.length).toBeGreaterThanOrEqual(1);
+    });
   });
 
   it('Should get produto 1', () => {
