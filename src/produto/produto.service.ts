@@ -11,12 +11,12 @@ export class ProdutoService {
   ) {}
 
   async getProdutos(): Promise<IProduto[]> {
-    const produtos = await this.produtoModel.find().exec();
+    const produtos = await this.produtoModel.find();
     return produtos;
   }
 
   async addProduto(createProdutoDTO: CreateProdutoDTO): Promise<IProduto> {
     const newProd = await new this.produtoModel(createProdutoDTO);
-    return newProd.save();
+    return await newProd.save();
   }
 }

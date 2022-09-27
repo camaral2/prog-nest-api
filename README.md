@@ -5,6 +5,12 @@ My aplication development with nestjs
 
 ## Ref
 https://cloudnweb.dev/2019/12/building-modern-nodejs-application-using-nestjs-and-typescript/
+https://www.netguru.com/blog/how-to-write-tests-for-node-js
+
+Project Example
+https://github.com/mwanago/nestjs-typescript
+
+
 https://codesource.io/building-the-crud-rest-api-with-nestjs/
 https://github.com/lujakob/nestjs-realworld-example-app
 https://medium.com/swlh/connecting-to-mongodb-c8166e0a6cb7
@@ -28,6 +34,11 @@ https://betterprogramming.pub/clean-node-js-architecture-with-nestjs-and-typescr
 https://github.com/xuannghia/nestjs-typescript-example
 
 https://wanago.io/2020/07/13/api-nestjs-testing-services-controllers-integration-tests/
+
+https://dev.to/tkssharma/unit-testing-and-integration-testing-nestjs-application-4d7a
+
+Example run API
+https://leocode.com/development/testing-node-with-jest/
 
 ## Stay in touch
 
