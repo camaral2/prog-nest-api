@@ -40,6 +40,15 @@ https://dev.to/tkssharma/unit-testing-and-integration-testing-nestjs-application
 Example run API
 https://leocode.com/development/testing-node-with-jest/
 
+Example create throw error
+https://betterprogramming.pub/testing-controllers-in-nestjs-and-mongo-with-jest-63e1b208503c
+
+Unit Test Service
+https://medium.com/swlh/connecting-to-mongodb-c8166e0a6cb7
+
+Interfaces in TypeScript
+https://blog.logrocket.com/understanding-using-interfaces-typescript/
+
 ## Stay in touch
 
 - Author - [Cristian Amaral](https://www.linkedin.com/in/cristian-amaral-061b0b68)

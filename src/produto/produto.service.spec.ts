@@ -4,11 +4,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProdutoService } from './produto.service';
 import { Produto } from './schemas/produto.schema';
-import { ProdutoModule } from './produto.module';
-import { IProduto } from './interfaces/produto.interfaces';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateProdutoDTO } from './dto/create-produto.dto';
+import { ProdutoAlreadyExists } from './exception/produto-already-exists';
 
 const produtosMock = [
   {
@@ -40,6 +38,7 @@ describe('ProdutoService', () => {
             new: jest.fn().mockResolvedValue(produtoMock),
             constructor: jest.fn().mockResolvedValue(produtoMock),
             find: jest.fn(),
+            findOne: jest.fn(),
             create: jest.fn(),
             exec: jest.fn(),
           },
@@ -56,6 +55,35 @@ describe('ProdutoService', () => {
     expect(model).toBeDefined();
   });
 
+  describe('Produto New', () => {
+    it('should insert a new produto', async () => {
+      jest.spyOn(model, 'findOne').mockReturnValue({
+        exec: jest.fn().mockResolvedValueOnce(null),
+      } as any);
+
+      jest
+        .spyOn(model, 'create')
+        .mockImplementationOnce(() => Promise.resolve(produtoMock));
+
+      const newProd = await service.addProduto(produtoMock);
+      expect(newProd).toEqual(produtoMock);
+    });
+
+    it('should return then error produto already exists', async () => {
+      jest.spyOn(model, 'findOne').mockReturnValue({
+        exec: jest.fn().mockResolvedValueOnce(produtoMock),
+      } as any);
+
+      jest
+        .spyOn(model, 'create')
+        .mockImplementationOnce(() => Promise.resolve(produtoMock));
+
+      await expect(service.addProduto(produtoMock)).rejects.toThrow(
+        ProdutoAlreadyExists,
+      );
+    });
+  });
+
   describe('Produto List', () => {
     it('should return an array of produto', async () => {
       jest.spyOn(model, 'find').mockReturnValue({
@@ -70,15 +98,6 @@ describe('ProdutoService', () => {
 
       expect(res.length).toBe(2);
       expect(model.find).toHaveBeenCalled();
-    });
-
-    it('should insert a new produto', async () => {
-      jest
-        .spyOn(model, 'create')
-        .mockImplementationOnce(() => Promise.resolve(produtoMock));
-
-      const newProd = await service.addProduto(produtoMock);
-      expect(newProd).toEqual(produtoMock);
     });
   });
 });

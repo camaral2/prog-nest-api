@@ -28,12 +28,13 @@ import {
 export class ProdutoController {
   constructor(private produtoService: ProdutoService) {}
 
-  @ApiOperation({ summary: 'Get all articles' })
-  @ApiResponse({ status: 200, description: 'Return all articles.' })
+  @ApiOperation({ summary: 'Get all produto' })
+  @ApiResponse({ status: 200, description: 'Return all produto.' })
   @Get()
-  async getProdutos(@Res() res) {
+  async getProdutos() {
     const produtos = await this.produtoService.getProdutos();
-    return res.status(HttpStatus.OK).json(produtos);
+
+    return produtos;
   }
 
   /*

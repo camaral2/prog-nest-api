@@ -12,10 +12,10 @@ export class Produto {
   price: number;
 
   @Prop()
-  width: number;
+  width?: number;
 
   @Prop()
-  message: string;
+  message?: string;
 }
 
 export const ProdutoSchema = SchemaFactory.createForClass(Produto);
