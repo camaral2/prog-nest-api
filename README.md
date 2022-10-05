@@ -18,7 +18,6 @@ https://medium.com/swlh/connecting-to-mongodb-c8166e0a6cb7
 https://firxworx.com/blog/coding/nestjs-integration-and-e2e-tests-with-typeorm-postgres-and-jwt/
 
 https://ualmtorres-github-io.translate.goog/SeminarioTesting/?_x_tr_sl=es&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=sc
-https://www.makeuseof.com/express-apis-jest-test/
 https://ualmtorres.github.io/SeminarioTesting/
 
 
@@ -26,9 +25,14 @@ https://betterprogramming.pub/testing-controllers-in-nestjs-and-mongo-with-jest-
 https://www.thisdot.co/blog/introduction-to-restful-apis-with-nestjs
 
 https://javascript.plainenglish.io/build-a-server-side-app-with-typescript-nestjs-and-mongodb-d29d26ac1ab3
+
+Example authorization
 https://blog.logrocket.com/full-stack-app-tutorial-nestjs-react/
 
 https://www.sidechannel.blog/en/creating-an-api-with-nestjs/
+
+HealthCheck
+https://docs.nestjs.com/recipes/terminus
 
 https://betterprogramming.pub/clean-node-js-architecture-with-nestjs-and-typescript-34b9398d790f
 https://github.com/xuannghia/nestjs-typescript-example
@@ -48,6 +52,9 @@ https://medium.com/swlh/connecting-to-mongodb-c8166e0a6cb7
 
 Interfaces in TypeScript
 https://blog.logrocket.com/understanding-using-interfaces-typescript/
+
+Detalhe of Spyon
+https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
 
 ## Stay in touch
 

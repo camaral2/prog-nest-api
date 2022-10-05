@@ -2,9 +2,9 @@ import { Test } from '@nestjs/testing';
 import { ProdutoController } from './produto.controller';
 import { ProdutoService } from './produto.service';
 import { IProduto } from './interfaces/produto.interfaces';
-import { Produto, ProdutoSchema } from './schemas/produto.schema';
-import { Res } from '@nestjs/common';
+import { Produto } from './schemas/produto.schema';
 import { getModelToken } from '@nestjs/mongoose';
+import { CreateProdutoDTO } from './dto/create-produto.dto';
 
 const produtoMock = {
   description: 'Display',
@@ -22,14 +22,10 @@ describe('ProdutoController', () => {
       providers: [
         ProdutoService,
         {
-          provide: getModelToken('Produto'),
+          provide: ProdutoService,
           useValue: {
-            new: jest.fn().mockResolvedValue(produtoMock),
-            constructor: jest.fn().mockResolvedValue(produtoMock),
-            find: jest.fn(),
-            findOne: jest.fn(),
-            create: jest.fn(),
-            exec: jest.fn(),
+            getProdutos: jest.fn(() => [produtoMock]),
+            addProduto: jest.fn().mockResolvedValue(produtoMock),
           },
         },
       ],
@@ -47,7 +43,7 @@ describe('ProdutoController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should return an array of produtos', async () => {
+  it('should return a list of produtos', async () => {
     const prods: Produto[] = [];
     const p1: Produto = { description: 'Mouse', price: 2.98 };
     const p2: Produto = { description: 'Paper', price: 4.2 };
@@ -66,6 +62,8 @@ describe('ProdutoController', () => {
     jest.spyOn(service, 'getProdutos').mockResolvedValue(prods as IProduto[]);
 
     const findAllResult = await controller.getProdutos();
+
+    expect(service.getProdutos).toHaveBeenCalled();
     expect(findAllResult).toBe(prods);
   });
 
@@ -82,15 +80,29 @@ describe('ProdutoController', () => {
       id: 1,
     });
   });
+*/
+
   it('Should add new produto', async () => {
-    const newProd = {
+    /*
+    const newProd: CreateProdutoDTO = {
       description: 'key',
       price: 4.59,
       width: 340,
       message: 'test',
     };
-    const ret = await produtoController.addProduto('produto', newProd);
-    expect(ret).toMatchObject(newProd);
+    jest.spyOn(service, 'addProduto').mockResolvedValue(newProd as IProduto);
+    */
+
+    const ret = await controller.addProduto(produtoMock);
+
+    expect(service.addProduto).toHaveBeenCalled();
+    expect(ret).toMatchObject(produtoMock);
   });
-*/
+
+  it('calling addProduto method', () => {
+    const dto = new CreateProdutoDTO();
+    controller.addProduto(dto);
+    expect(service.addProduto).toHaveBeenCalled();
+    expect(service.addProduto).toHaveBeenCalledWith(dto);
+  });
 });

@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { CreateProdutoDTO } from './dto/create-produto.dto';
 import { ProdutoService } from './produto.service';
 import {
@@ -18,8 +10,9 @@ import {
   ApiForbiddenResponse,
   ApiOkResponse,
   ApiUnprocessableEntityResponse,
+  ApiCreatedResponse,
 } from '@nestjs/swagger';
-
+import { IProduto } from './interfaces/produto.interfaces';
 //import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
 
 @ApiBearerAuth()
@@ -28,12 +21,14 @@ import {
 export class ProdutoController {
   constructor(private produtoService: ProdutoService) {}
 
+  @ApiTags('produto')
+  @ApiOperation({ description: 'Get All Produto' })
+  //@UsePipes(ValidationPipe)
   @ApiOperation({ summary: 'Get all produto' })
   @ApiResponse({ status: 200, description: 'Return all produto.' })
   @Get()
-  async getProdutos() {
+  async getProdutos(): Promise<IProduto[]> {
     const produtos = await this.produtoService.getProdutos();
-
     return produtos;
   }
 
@@ -46,16 +41,16 @@ export class ProdutoController {
     return this.produtoService.getProdutos();
   }
 */
-  @ApiOkResponse({ description: 'The resource was updated successfully' })
+  @ApiOkResponse({ description: 'The resource was inserted successfully' })
   @ApiNotFoundResponse({ description: 'Resource not found' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
-  @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
+  @ApiCreatedResponse({ description: 'Produto created successfully.' })
+  @ApiUnprocessableEntityResponse({
+    description: 'Produto title already exists.',
+  })
   @Post()
-  async addProduto(@Res() res, @Body() createProdutoDTO: CreateProdutoDTO) {
+  async addProduto(@Body() createProdutoDTO: CreateProdutoDTO) {
     const newProd = await this.produtoService.addProduto(createProdutoDTO);
-    return res.status(HttpStatus.OK).json({
-      message: 'Produto has been created successfully!',
-      produto: newProd,
-    });
+    return newProd;
   }
 }
