@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
-import { CreateProdutoDTO } from './dto/create-produto.dto';
-import { ProdutoService } from './produto.service';
+import { CreateProdutoDTO } from '@exmpl/produto/dto/create-produto.dto';
+import { ProdutoService } from '@exmpl/produto/produto.service';
 import {
   ApiBearerAuth,
   ApiResponse,
@@ -24,8 +24,7 @@ export class ProdutoController {
   @ApiTags('produto')
   @ApiOperation({ description: 'Get All Produto' })
   //@UsePipes(ValidationPipe)
-  @ApiOperation({ summary: 'Get all produto' })
-  @ApiResponse({ status: 200, description: 'Return all produto.' })
+  @ApiResponse({ description: 'Return all produto.' })
   @Get()
   async getProdutos(): Promise<IProduto[]> {
     const produtos = await this.produtoService.getProdutos();

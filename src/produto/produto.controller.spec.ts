@@ -1,10 +1,11 @@
 import { Test } from '@nestjs/testing';
-import { ProdutoController } from './produto.controller';
-import { ProdutoService } from './produto.service';
-import { IProduto } from './interfaces/produto.interfaces';
-import { Produto } from './schemas/produto.schema';
-import { getModelToken } from '@nestjs/mongoose';
-import { CreateProdutoDTO } from './dto/create-produto.dto';
+import { ProdutoController } from '@exmpl/produto/produto.controller';
+import { ProdutoService } from '@exmpl/produto/produto.service';
+import { IProduto } from '@exmpl/produto/interfaces/produto.interfaces';
+import { Produto } from '@exmpl/produto/schemas/produto.schema';
+import { CreateProdutoDTO } from '@exmpl/produto/dto/create-produto.dto';
+import { ProdutoAlreadyExists } from '@exmpl/produto/exception/produto-already-exists';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 const produtoMock = {
   description: 'Display',
@@ -81,28 +82,50 @@ describe('ProdutoController', () => {
     });
   });
 */
+  describe('Post produto', () => {
+    it('Should add new produto', async () => {
+      /*
+      const newProd: CreateProdutoDTO = {
+        description: 'key',
+        price: 4.59,
+        width: 340,
+        message: 'test',
+      };
+      jest.spyOn(service, 'addProduto').mockResolvedValue(newProd as IProduto);
+      */
 
-  it('Should add new produto', async () => {
-    /*
-    const newProd: CreateProdutoDTO = {
-      description: 'key',
-      price: 4.59,
-      width: 340,
-      message: 'test',
-    };
-    jest.spyOn(service, 'addProduto').mockResolvedValue(newProd as IProduto);
-    */
+      const ret = await controller.addProduto(produtoMock);
 
-    const ret = await controller.addProduto(produtoMock);
+      expect(service.addProduto).toHaveBeenCalled();
+      expect(ret).toMatchObject(produtoMock);
+    });
 
-    expect(service.addProduto).toHaveBeenCalled();
-    expect(ret).toMatchObject(produtoMock);
-  });
+    it('calling addProduto method', () => {
+      const dto = new CreateProdutoDTO();
+      controller.addProduto(dto);
+      expect(service.addProduto).toHaveBeenCalled();
+      expect(service.addProduto).toHaveBeenCalledWith(dto);
+    });
 
-  it('calling addProduto method', () => {
-    const dto = new CreateProdutoDTO();
-    controller.addProduto(dto);
-    expect(service.addProduto).toHaveBeenCalled();
-    expect(service.addProduto).toHaveBeenCalledWith(dto);
+    it('Should return produto-already-exists exception', async () => {
+      //jest.spyOn(service, 'addProduto').mockRejectedValue('teste');
+
+      jest.spyOn(service, 'addProduto').mockImplementation(() => {
+        throw new ProdutoAlreadyExists();
+      });
+
+      //expect.assertions(1);
+      return controller
+        .addProduto(produtoMock)
+        .catch((e) => expect(e.message).toEqual('Produto already exists!'));
+      /*
+      const rest = await controller.addProduto(produtoMock);
+
+      expect.assertions(1);
+      expect(rest).rejects.toEqual({
+        error: 'User with 3 not found.',
+      });
+      */
+    });
   });
 });

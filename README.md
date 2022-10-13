@@ -41,6 +41,7 @@ https://wanago.io/2020/07/13/api-nestjs-testing-services-controllers-integration
 
 https://dev.to/tkssharma/unit-testing-and-integration-testing-nestjs-application-4d7a
 
+
 Example run API
 https://leocode.com/development/testing-node-with-jest/
 
@@ -48,13 +49,19 @@ Example create throw error
 https://betterprogramming.pub/testing-controllers-in-nestjs-and-mongo-with-jest-63e1b208503c
 
 Unit Test Service
+https://github.com/jmcdo29/testing-nestjs/tree/main/apps/mongo-sample/src/cat
+https://github.com/jmcdo29/testing-nestjs/tree/main/apps
 https://medium.com/swlh/connecting-to-mongodb-c8166e0a6cb7
+https://circleci.com/blog/getting-started-with-nestjs-and-automatic-testing/
 
 Interfaces in TypeScript
 https://blog.logrocket.com/understanding-using-interfaces-typescript/
 
 Detalhe of Spyon
 https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
+
+NestJs Example
+https://github.com/nestjs/nest/tree/master/sample
 
 ## Stay in touch
 
