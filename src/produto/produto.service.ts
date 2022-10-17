@@ -49,4 +49,17 @@ export class ProdutoService {
       throw err;
     }
   }
+
+  async removeProduto(description: string) {
+    try {
+      const produto = await this.produtoModel.findOne({ description });
+      if (!produto) throw new ProdutoNotFound();
+
+      //await this.produtoModel.deleteOne(produto._id);
+      return await produto.deleteOne();
+    } catch (err) {
+      logger.error(`Error: ${err} - [${description}]`);
+      throw err;
+    }
+  }
 }

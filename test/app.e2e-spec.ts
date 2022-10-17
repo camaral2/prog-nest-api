@@ -15,7 +15,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await app.close();
   });
 
@@ -25,14 +25,6 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
-
-  it('/ (GET test)', () => {
-    return request(app.getHttpServer()).get('/test').expect(200);
-  });
-
-  describe('Endpoint Produto', () => {
-    it('Get all produto', () => {
-      return request(app.getHttpServer()).get('/produto').expect(200);
-    });
-  });
 });
+
+//https://gist.github.com/mjclemente/e13995c29376f0924eb2eacf98eaa5a6

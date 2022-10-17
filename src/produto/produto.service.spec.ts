@@ -100,6 +100,22 @@ describe('ProdutoService', () => {
       expect(res.length).toBe(2);
       expect(model.find).toHaveBeenCalled();
     });
+
+    it('should fail in produto list', async () => {
+      jest.spyOn(model, 'find').mockImplementation(() => {
+        throw new Error();
+      });
+
+      jest.spyOn(model, 'find').mockReturnValue({
+        exec: jest.fn().mockImplementation(() => {
+          throw new Error();
+        }),
+      } as any);
+
+      await expect(service.getProdutos()).rejects.toThrow();
+      expect(model.find).toHaveBeenCalledTimes(1);
+      expect(model.find).toHaveBeenCalled();
+    });
   });
 
   describe('Produto find', () => {

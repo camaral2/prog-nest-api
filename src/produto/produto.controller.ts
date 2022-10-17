@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateProdutoDTO } from '@exmpl/produto/dto/create-produto.dto';
 import { ProdutoService } from '@exmpl/produto/produto.service';
 import {
@@ -16,12 +16,11 @@ import { IProduto } from './interfaces/produto.interfaces';
 //import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
 
 @ApiBearerAuth()
-@ApiTags('articles')
+@ApiTags('produto')
 @Controller('produto')
 export class ProdutoController {
   constructor(private produtoService: ProdutoService) {}
 
-  @ApiTags('produto')
   @ApiOperation({ description: 'Get All Produto' })
   //@UsePipes(ValidationPipe)
   @ApiResponse({ description: 'Return all produto.' })
@@ -31,25 +30,39 @@ export class ProdutoController {
     return produtos;
   }
 
-  /*
-  @Get('produto/:produtoId')
-  async getProduto(@Res() Res, @Param('produtoId') params) {
-    //    getProduto(@Res() Res, @Param('produtoId', new ValidateObjectId()) params) {
-    const produto = await this.produtoService.getProduto(produtoId);
-    console.log('id:', params.id);
-    return this.produtoService.getProdutos();
+  @ApiOkResponse({ description: 'The resource was found successfully' })
+  @ApiNotFoundResponse({ description: 'Resource not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @Get('/:description')
+  async getProduto(
+    @Param('description') description: string,
+  ): Promise<IProduto> {
+    const produto = await this.produtoService.getProduto(description);
+    return produto;
   }
-*/
-  @ApiOkResponse({ description: 'The resource was inserted successfully' })
+
   @ApiNotFoundResponse({ description: 'Resource not found' })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @ApiCreatedResponse({ description: 'Produto created successfully.' })
   @ApiUnprocessableEntityResponse({
-    description: 'Produto title already exists.',
+    description: 'Produto description already exists.',
   })
   @Post()
-  async addProduto(@Body() createProdutoDTO: CreateProdutoDTO) {
+  async addProduto(
+    @Body() createProdutoDTO: CreateProdutoDTO,
+  ): Promise<IProduto> {
     const newProd = await this.produtoService.addProduto(createProdutoDTO);
     return newProd;
+  }
+
+  @ApiOkResponse({ description: 'The resource was deleted successfully' })
+  @ApiNotFoundResponse({ description: 'Resource not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiUnprocessableEntityResponse({
+    description: 'Produto description not found.',
+  })
+  @Delete('/:description')
+  async deleteProduto(@Param('description') description: string): Promise<any> {
+    return this.produtoService.removeProduto(description);
   }
 }

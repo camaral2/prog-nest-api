@@ -1,14 +1,21 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, MaxLength, Min, MinLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  MaxLength,
+  Min,
+  MinLength,
+  NotEquals,
+} from 'class-validator';
 
 export class CreateProdutoDTO {
   @IsNotEmpty()
-  @MinLength(5, { message: 'The min length of password is 5' })
+  @MinLength(5, { message: 'The min length of description is 5' })
   @MaxLength(50, {
-    message: "The password can't accept more than 50 characters",
+    message: "The description can't accept more than 50 characters",
   })
   @ApiProperty({ example: 'Mouse', description: 'Needed description' })
   readonly description: string;
+  @NotEquals(0)
   @Min(0, { message: 'The price need of value' })
   readonly price: number;
 

@@ -5,7 +5,7 @@ import { IProduto } from '@exmpl/produto/interfaces/produto.interfaces';
 import { Produto } from '@exmpl/produto/schemas/produto.schema';
 import { CreateProdutoDTO } from '@exmpl/produto/dto/create-produto.dto';
 import { ProdutoAlreadyExists } from '@exmpl/produto/exception/produto-already-exists';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { ProdutoNotFound } from '@exmpl/produto/exception/produto-not-found';
 
 const produtoMock = {
   description: 'Display',
@@ -27,6 +27,7 @@ describe('ProdutoController', () => {
           useValue: {
             getProdutos: jest.fn(() => [produtoMock]),
             addProduto: jest.fn().mockResolvedValue(produtoMock),
+            getProduto: jest.fn(),
           },
         },
       ],
@@ -108,24 +109,40 @@ describe('ProdutoController', () => {
     });
 
     it('Should return produto-already-exists exception', async () => {
-      //jest.spyOn(service, 'addProduto').mockRejectedValue('teste');
-
       jest.spyOn(service, 'addProduto').mockImplementation(() => {
         throw new ProdutoAlreadyExists();
       });
 
-      //expect.assertions(1);
-      return controller
-        .addProduto(produtoMock)
-        .catch((e) => expect(e.message).toEqual('Produto already exists!'));
-      /*
-      const rest = await controller.addProduto(produtoMock);
+      try {
+        await controller.addProduto(produtoMock);
+      } catch (e) {
+        expect(e).toBeInstanceOf(ProdutoAlreadyExists);
+      }
+    });
+  });
 
-      expect.assertions(1);
-      expect(rest).rejects.toEqual({
-        error: 'User with 3 not found.',
+  describe('Get Produto', () => {
+    it('Should return a produto after get', async () => {
+      jest
+        .spyOn(service, 'getProduto')
+        .mockResolvedValueOnce(produtoMock as IProduto);
+
+      const ret = await controller.getProduto(produtoMock.description);
+
+      expect(service.getProduto).toHaveBeenCalled();
+      expect(ret).toMatchObject(produtoMock);
+    });
+
+    it('should return error, if there is no produto with given description', async () => {
+      jest.spyOn(service, 'getProduto').mockImplementation(() => {
+        throw new ProdutoNotFound();
       });
-      */
+
+      try {
+        await controller.getProduto('');
+      } catch (e) {
+        expect(e).toBeInstanceOf(ProdutoNotFound);
+      }
     });
   });
 });

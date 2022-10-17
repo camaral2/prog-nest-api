@@ -39,6 +39,7 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
@@ -80,7 +81,9 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "src/app.module.ts",
-      "src/main.ts"
+      "src/main.ts",
+      "src/produto/produto.module.ts",
+      "src/produto/schemas/produto.schema.ts"
     ],
     "moduleNameMapper": {
       "@exmpl/(.*)": "<rootDir>/$1"

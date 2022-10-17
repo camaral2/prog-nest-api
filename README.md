@@ -59,9 +59,14 @@ https://blog.logrocket.com/understanding-using-interfaces-typescript/
 
 Detalhe of Spyon
 https://medium.com/@rickhanlonii/understanding-jest-mocks-f0046c68e53c
+https://blog.logrocket.com/unit-testing-nestjs-applications-with-jest/
+https://tkssharma.com/e2e-integration-tests-nestjs-for-apis/
 
 NestJs Example
 https://github.com/nestjs/nest/tree/master/sample
+
+How to run E2E Tests with docker-compose
+https://firxworx.com/blog/coding/how-to-run-e2e-tests-with-docker-compose/
 
 ## Stay in touch
 
