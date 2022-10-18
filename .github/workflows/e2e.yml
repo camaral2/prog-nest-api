@@ -7,12 +7,10 @@ on:
     branches: [ "main" ]
 
 env:
-  RUST_BACKTRACE: 1
-  CARGO_TERM_COLOR: always
   APP_ENV: development
-  APP_MONGO_USER: test
-  APP_MONGO_PASS: password
-  APP_MONGO_DB: test
+  APP_MONGO_USER: camaral
+  APP_MONGO_PASS: camaral1122
+  APP_MONGO_DB: dbprog-nest-api
 
 jobs:
   build:
@@ -23,21 +21,6 @@ jobs:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    services:
-      mongodb:
-        image: mongo
-        env:
-          MONGO_INITDB_ROOT_USERNAME: test
-          MONGO_INITDB_ROOT_PASSWORD: password
-          MONGO_INITDB_DATABASE: test
-        options: >-
-          --health-cmd mongo
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 27017:27017
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -45,6 +28,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
+
+    - name: Start MongoDB
+      uses: MongoCamp/mongodb-github-action@0.5.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-port: 27017
+        mongodb-username: camaral
+        mongodb-pwd: camaral1122        
 
     - name: Running e2e testing
       run: yarn test:e2e
