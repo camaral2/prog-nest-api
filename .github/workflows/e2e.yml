@@ -8,9 +8,10 @@ on:
 
 env:
   APP_ENV: development
-  APP_MONGO_USER: camaral
-  APP_MONGO_PASS: camaral1122
-  APP_MONGO_DB: dbprog-nest-api
+  #APP_MONGO_USER: camaral
+  #APP_MONGO_PASS: camaral1122
+  #APP_MONGO_DB: dbprog-nest-api
+  MONGODB_URI: mongodb://localhost:27017/dbprog-nest-api
 
 jobs:
   build:
@@ -35,8 +36,9 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-port: 27017
-        mongodb-username: camaral
-        mongodb-password: camaral1122  
+        mongodb-database: dbprog-nest-api
+        #mongodb-username: camaral
+        #mongodb-password: camaral1122  
 
     - name: Install dependencies
       run: yarn install --frozen-lockfile      

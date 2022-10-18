@@ -68,6 +68,9 @@ https://github.com/nestjs/nest/tree/master/sample
 How to run E2E Tests with docker-compose
 https://firxworx.com/blog/coding/how-to-run-e2e-tests-with-docker-compose/
 
+How to implement JWT authentication in NestJS
+https://blog.logrocket.com/how-to-implement-jwt-authentication-nestjs/
+
 ## Stay in touch
 
 - Author - [Cristian Amaral](https://www.linkedin.com/in/cristian-amaral-061b0b68)
