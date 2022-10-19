@@ -42,6 +42,7 @@ describe('ProdutoService', () => {
             findOne: jest.fn(),
             create: jest.fn(),
             exec: jest.fn(),
+            deleteOne: jest.fn(),
           },
         },
       ],
@@ -133,6 +134,29 @@ describe('ProdutoService', () => {
 
       const res = await expect(
         service.getProduto(oneProdutoMock.description),
+      ).rejects.toThrow(ProdutoNotFound);
+
+      expect(model.findOne).toHaveBeenCalledTimes(1);
+      expect(model.findOne).toHaveBeenCalledWith({ description: 'Display' });
+    });
+  });
+
+  describe('Produto delete', () => {
+    it('should delete a produto', async () => {
+      jest.spyOn(model, 'findOne').mockReturnValue({
+        deleteOne: jest.fn().mockResolvedValueOnce(oneProdutoMock as any),
+      } as any);
+      const res = await service.removeProduto(oneProdutoMock.description);
+
+      expect(model.findOne).toHaveBeenCalledTimes(1);
+      expect(res).toMatchObject(oneProdutoMock);
+    });
+
+    it('should fail if no produto is found', async () => {
+      jest.spyOn(model, 'findOne').mockReturnValue(null);
+
+      const res = await expect(
+        service.removeProduto(oneProdutoMock.description),
       ).rejects.toThrow(ProdutoNotFound);
 
       expect(model.findOne).toHaveBeenCalledTimes(1);

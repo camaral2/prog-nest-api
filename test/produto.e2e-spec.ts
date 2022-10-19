@@ -24,7 +24,6 @@ describe('Produto Controller (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.enableCors();
     app.useGlobalPipes(new ValidationPipe()); // <----- here
     await app.init();
   });

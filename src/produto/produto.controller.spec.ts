@@ -28,6 +28,7 @@ describe('ProdutoController', () => {
             getProdutos: jest.fn(() => [produtoMock]),
             addProduto: jest.fn().mockResolvedValue(produtoMock),
             getProduto: jest.fn(),
+            removeProduto: jest.fn(),
           },
         },
       ],
@@ -122,7 +123,7 @@ describe('ProdutoController', () => {
   });
 
   describe('Get Produto', () => {
-    it('Should return a produto after get', async () => {
+    it('Should return a produto', async () => {
       jest
         .spyOn(service, 'getProduto')
         .mockResolvedValueOnce(produtoMock as IProduto);
@@ -140,6 +141,31 @@ describe('ProdutoController', () => {
 
       try {
         await controller.getProduto('');
+      } catch (e) {
+        expect(e).toBeInstanceOf(ProdutoNotFound);
+      }
+    });
+  });
+
+  describe('Delete Produto', () => {
+    it('Should delete a produto', async () => {
+      jest
+        .spyOn(service, 'removeProduto')
+        .mockResolvedValueOnce(produtoMock as IProduto);
+
+      const ret = await controller.deleteProduto(produtoMock.description);
+
+      expect(service.removeProduto).toHaveBeenCalled();
+      expect(ret).toMatchObject(produtoMock);
+    });
+
+    it('should return error, if there is no produto with given description', async () => {
+      jest.spyOn(service, 'removeProduto').mockImplementation(() => {
+        throw new ProdutoNotFound();
+      });
+
+      try {
+        await controller.deleteProduto('');
       } catch (e) {
         expect(e).toBeInstanceOf(ProdutoNotFound);
       }
