@@ -26,11 +26,11 @@
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.1.0",
-    "@types/winston": "^2.4.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "dotenv-extended": "^2.9.0",
     "dotenv-parse-variables": "^2.0.0",
+    "helmet": "^6.0.0",
     "mongodb-memory-server": "^8.9.1",
     "mongoose": "^6.5.2",
     "reflect-metadata": "^0.1.13",
@@ -39,6 +39,8 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
+    "@types/winston": "^2.4.4",
+    "@types/helmet": "^4.0.0",
     "@faker-js/faker": "^7.6.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
@@ -75,7 +77,7 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.{js,jsx,tsx,ts}"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",

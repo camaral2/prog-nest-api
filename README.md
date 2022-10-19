@@ -12,7 +12,7 @@ https://github.com/mwanago/nestjs-typescript
 
 
 https://codesource.io/building-the-crud-rest-api-with-nestjs/
-https://github.com/lujakob/nestjs-realworld-example-app
+https://github.com/lujakob/nestjs-realworld-example-app  (validation.pipe)
 https://medium.com/swlh/connecting-to-mongodb-c8166e0a6cb7
 
 https://firxworx.com/blog/coding/nestjs-integration-and-e2e-tests-with-typeorm-postgres-and-jwt/

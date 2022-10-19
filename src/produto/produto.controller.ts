@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+} from '@nestjs/common';
 import { CreateProdutoDTO } from '@exmpl/produto/dto/create-produto.dto';
 import { ProdutoService } from '@exmpl/produto/produto.service';
 import {
@@ -12,8 +20,8 @@ import {
   ApiUnprocessableEntityResponse,
   ApiCreatedResponse,
 } from '@nestjs/swagger';
-import { IProduto } from './interfaces/produto.interfaces';
-//import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
+import { IProduto } from '@exmpl/produto/interfaces/produto.interfaces';
+import { ValidationPipe } from '@exmpl/shared/pipes/validation.pipe';
 
 @ApiBearerAuth()
 @ApiTags('produto')
@@ -22,7 +30,6 @@ export class ProdutoController {
   constructor(private produtoService: ProdutoService) {}
 
   @ApiOperation({ description: 'Get All Produto' })
-  //@UsePipes(ValidationPipe)
   @ApiResponse({ description: 'Return all produto.' })
   @Get()
   async getProdutos(): Promise<IProduto[]> {
@@ -47,6 +54,7 @@ export class ProdutoController {
   @ApiUnprocessableEntityResponse({
     description: 'Produto description already exists.',
   })
+  @UsePipes(new ValidationPipe())
   @Post()
   async addProduto(
     @Body() createProdutoDTO: CreateProdutoDTO,

@@ -15,8 +15,10 @@ export class CreateProdutoDTO {
   })
   @ApiProperty({ example: 'Mouse', description: 'Needed description' })
   readonly description: string;
+
   @NotEquals(0)
   @Min(0, { message: 'The price need of value' })
+  @ApiProperty({ example: 6.34, description: 'Needed price' })
   readonly price: number;
 
   @ApiPropertyOptional({
