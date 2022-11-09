@@ -16,7 +16,7 @@ async function bootstrap() {
     .setTitle('Project PROG-NEST-API')
     .setDescription('The Realworld API description')
     .setVersion('1.0')
-    .setBasePath('api')
+    //.setBasePath('api')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);

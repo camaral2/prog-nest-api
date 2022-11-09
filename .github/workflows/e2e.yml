@@ -36,7 +36,7 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-port: 27017
-        mongodb-database: dbprog-nest-api
+        mongodb-db: dbprog-nest-api
         #mongodb-username: camaral
         #mongodb-password: camaral1122  
 

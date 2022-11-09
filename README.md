@@ -70,7 +70,21 @@ https://firxworx.com/blog/coding/how-to-run-e2e-tests-with-docker-compose/
 
 How to implement JWT authentication in NestJS
 https://blog.logrocket.com/how-to-implement-jwt-authentication-nestjs/
+https://medium.com/neo4j/authentication-in-a-nest-js-application-with-neo4j-31beb416538
+
+NestJS + GraphQL + TypeORM
+Test: https://stackoverflow.com/questions/72813603/typeorm-entity-validators-not-working-when-e2e-testing-graphql-api-with-supertes
+
+Nest.js Step-by-Step
+https://www.codemag.com/Article/1907081/Nest.js-Step-by-Step
+
+
+## Commands Yarn
+yarn run "migration:generate" AddUserTable
+nest g s users
 
 ## Stay in touch
 
 - Author - [Cristian Amaral](https://www.linkedin.com/in/cristian-amaral-061b0b68)
+
+

@@ -115,25 +115,4 @@ describe('Produto Controller (e2e)', () => {
         .expect(/Produto not found!/);
     });
   });
-
-  /*
-
-  describe('Endpoint Produto', () => {
-    it('Get all produto', async () => {
-      const response = await request(app.getHttpServer()).get('/produto');
-      expect(response.status).toEqual(200);
-      expect(response.body).toBeDefined();
-      expect(Array.isArray(response.body)).toBeTruthy();
-      expect(response.body.length).toEqual(3);
-    });
-  });
-
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [RoutesResolver] AppController {/api/v1}: +17ms
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [RouterExplorer] Mapped {/api/v1/test, GET} route +4ms
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [RoutesResolver] ProdutoController {/api/v1/produto}: +1ms
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [RouterExplorer] Mapped {/api/v1/produto, GET} route +0ms
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [RouterExplorer] Mapped {/api/v1/produto/produto/:description, GET} route +2ms
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [RouterExplorer] Mapped {/api/v1/produto, POST} route +1ms
-[Nest] 38889  - 13/10/2022 22:41:16     LOG [NestApplication] Nest application successfully started +3ms
-*/
 });
